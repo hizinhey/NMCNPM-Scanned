@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/register_img_logo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:layout_marginTop="20dp"
+        android:padding="15dp"
+        android:src="@drawable/scan_logo"
+        android:contentDescription="logo"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="#5900b3"
+        android:textSize="30sp"
+        android:text="@string/register_label"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:layout_weight="8">
+        <EditText
+            android:id="@+id/register_edt_firstname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+
+            android:hint="@string/register_h_firstname"/>
+        <EditText
+            android:id="@+id/register_edt_lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+
+            android:hint="@string/register_h_lastname"/>
+        <EditText
+            android:id="@+id/register_edt_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+
+            android:hint="@string/register_h_username"/>
+        <EditText
+            android:id="@+id/register_edt_password"
+            android:layout_width="match_parent"
+
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+
+            android:layout_height="wrap_content"
+            android:hint="@string/register_h_password"/>
+        <EditText
+            android:id="@+id/register_edt_repassword"
+            android:layout_width="match_parent"
+
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+
+            android:layout_height="wrap_content"
+            android:hint="@string/register_h_repassword"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:elevation="0dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <Button
+            android:id="@+id/register_btn_signin"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:elevation="50dp"
+            android:text="@string/register_t_signup"
+            />
+    </LinearLayout>
+
+</LinearLayout>

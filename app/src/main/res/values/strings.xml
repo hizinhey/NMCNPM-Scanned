@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Scanned</string>
+
+    // Login
+    <string name="login_h_username">Username</string>
+    <string name="login_h_password">Password</string>
+    <string name="login_t_signin">Sign In</string>
+    <string name="login_t_signup_mess">Don\'t have a account?</string>
+    <string name="login_t_signup"><u>Sign up</u></string>
+    <string name="login_t_forgot"><u>Forgotten password?</u></string>
+    <string name="login_t_or">Or</string>
+    <string name="login_label"><i><b>LOG-IN</b></i></string>
+
+    //register
+    <string name="register_h_username">Username</string>
+    <string name="register_h_password">Password</string>
+    <string name="register_h_repassword">Re-password</string>
+    <string name="register_h_firstname">First name</string>
+    <string name="register_h_lastname">Last name</string>
+    <string name="register_t_signup">Sign up</string>
+    <string name="register_label"><i><b>REGISTER ACCOUNT</b></i></string>
+
+    //name label
+    <string name="main_activity_name">Home</string>
+</resources>
