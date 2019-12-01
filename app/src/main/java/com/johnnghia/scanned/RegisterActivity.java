@@ -1,6 +1,7 @@
 package com.johnnghia.scanned;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.johnnghia.scanned.models.objects.User;
 public class RegisterActivity extends Activity {
     EditText edtFirstName, edtLastName, edtUser, edtPass, edtRePass;
     Button btnSignup;
+    AlertDialog mLoadingDialog;
 
     FirebaseAuth mAuth;
 
@@ -31,6 +33,10 @@ public class RegisterActivity extends Activity {
 
         mAuth = FirebaseAuth.getInstance();
         ConnectWidgets();
+        mLoadingDialog = new AlertDialog.Builder(RegisterActivity.this)
+                                        .setCancelable(false)
+                                        .setView(R.layout.loading_layout)
+                                        .create();
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +45,7 @@ public class RegisterActivity extends Activity {
                 switch (user.checkInfor()) {
                     case 1:
                         if(edtRePass.getText().toString().equals(user.getPass())){
+                            mLoadingDialog.show();
                             mAuth.createUserWithEmailAndPassword(user.getUser(), user.getPass())
                                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                         @Override
@@ -47,14 +54,14 @@ public class RegisterActivity extends Activity {
 
                                                 // TO-DO: Create information in database
 
-
+                                                mLoadingDialog.dismiss();
                                                 Toast.makeText(RegisterActivity.this, "Create new account successful.", Toast.LENGTH_SHORT).show();
-                                                Intent intentSignin = new Intent(RegisterActivity.this, LoginActivity.class);
-
-                                                // TO-DO: Delete this activity in stack
-
+                                                Intent intentSignin = new Intent(RegisterActivity.this, MainActivity.class);
+                                                intentSignin.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(intentSignin);
+                                                finish();
                                             } else {
+                                                mLoadingDialog.dismiss();
                                                 Toast.makeText(RegisterActivity.this, "Some thing went wrong.", Toast.LENGTH_SHORT).show();
                                             }
                                         }

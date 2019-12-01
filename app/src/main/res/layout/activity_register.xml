@@ -34,13 +34,13 @@
 
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-
+            android:inputType="text"
             android:hint="@string/register_h_firstname"/>
         <EditText
             android:id="@+id/register_edt_lastname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:inputType="text"
             android:layout_marginTop="10dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
@@ -50,7 +50,7 @@
             android:id="@+id/register_edt_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:inputType="textEmailAddress"
             android:layout_marginTop="10dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
@@ -63,7 +63,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-
+            android:inputType="textPassword"
             android:layout_height="wrap_content"
             android:hint="@string/register_h_password"/>
         <EditText
@@ -73,7 +73,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-
+            android:inputType="textPassword"
             android:layout_height="wrap_content"
             android:hint="@string/register_h_repassword"/>
     </LinearLayout>

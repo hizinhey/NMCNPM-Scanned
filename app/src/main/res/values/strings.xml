@@ -22,4 +22,10 @@
 
     //name label
     <string name="main_activity_name">Home</string>
+    <string name="loading">Loading</string>
+    <string name="log_out">Log out</string>
+    <string name="image_source">image_source</string>
+    <string name="source">Source</string>
+    <string name="result">Result</string>
+    <string name="save">Save</string>
 </resources>

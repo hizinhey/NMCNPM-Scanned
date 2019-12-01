@@ -1,6 +1,7 @@
 package com.johnnghia.scanned;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -25,7 +26,7 @@ public class LoginActivity extends Activity {
     Button btnLogin;
     EditText edtUser, edtPass;
     TextView linkForgot, linkSignup;
-
+    AlertDialog mLoadingDialog;
     private int countFault = 0;
 
     @Override
@@ -37,6 +38,10 @@ public class LoginActivity extends Activity {
 
         // Connect Element
         ConnectWidgets();
+        mLoadingDialog = new AlertDialog.Builder(LoginActivity.this)
+                .setCancelable(false)
+                .setView(R.layout.loading_layout)
+                .create();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,17 +49,21 @@ public class LoginActivity extends Activity {
                 User user = new User(edtUser.getText().toString(), edtPass.getText().toString());
                 switch (user.checkUser()) {
                     case 1:
+                        mLoadingDialog.show();
                         mAuth.signInWithEmailAndPassword(user.getUser(), user.getPass())
                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
                                             // Task completed successfully
-                                            AuthResult result = task.getResult();
+                                            mLoadingDialog.dismiss();
+                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
                                             Toast.makeText(LoginActivity.this, "Login successful.", Toast.LENGTH_SHORT).show();
-                                            onBackPressed();
                                         } else {
                                             // Task failed with an exception
+                                            mLoadingDialog.dismiss();
                                             Exception exception = task.getException();
                                             Toast.makeText(LoginActivity.this, "Username or password is not corrected.", Toast.LENGTH_SHORT).show();
                                             countFault++;
