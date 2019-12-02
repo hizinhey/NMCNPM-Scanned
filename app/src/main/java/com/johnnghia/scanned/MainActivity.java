@@ -30,6 +30,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.johnnghia.scanned.models.objects.TextFile;
 import com.johnnghia.scanned.utils.MyAdapter;
 import com.karumi.dexter.Dexter;
@@ -64,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mAuth = FirebaseAuth.getInstance();
+
         rvFiles = findViewById(R.id.rv_files);
         mAdd = findViewById(R.id.fab_add);
-
-        mAuth = FirebaseAuth.getInstance();
 
         MyAdapter adapter = new MyAdapter();
 

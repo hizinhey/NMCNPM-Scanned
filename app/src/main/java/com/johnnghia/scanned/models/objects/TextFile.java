@@ -1,15 +1,19 @@
 package com.johnnghia.scanned.models.objects;
 
+import com.google.firebase.firestore.IgnoreExtraProperties;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@IgnoreExtraProperties
 public class TextFile {
     private String title;
     private String text;
     private Date date;
 
+    public TextFile(){}
     public TextFile(String text, Date date, String title) {
         this.text = text;
         this.date = date;
