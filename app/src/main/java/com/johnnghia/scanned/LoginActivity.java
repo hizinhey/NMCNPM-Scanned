@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.johnnghia.scanned.models.objects.User;
+import com.johnnghia.scanned.models.services.MCFirebaseResourceTool;
 
 public class LoginActivity extends Activity {
     private FirebaseAuth mAuth;
@@ -62,8 +63,8 @@ public class LoginActivity extends Activity {
                                             finish();
                                             Toast.makeText(LoginActivity.this, "Login successful.", Toast.LENGTH_SHORT).show();
                                         } else {
-                                            // Task failed with an exception
                                             mLoadingDialog.dismiss();
+                                            // Task failed with an exception
                                             Exception exception = task.getException();
                                             Toast.makeText(LoginActivity.this, "Username or password is not corrected.", Toast.LENGTH_SHORT).show();
                                             countFault++;

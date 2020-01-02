@@ -33,6 +33,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.johnnghia.scanned.models.objects.TextFile;
+import com.johnnghia.scanned.models.services.MCFirebaseResourceTool;
 import com.johnnghia.scanned.utils.MyAdapter;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton mAdd;
 
     private FirebaseAuth mAuth;
+    private MCFirebaseResourceTool mcFirebaseResourceTool;
 
     private Uri imageUri;
 
@@ -68,10 +70,14 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        mcFirebaseResourceTool = new MCFirebaseResourceTool(getApplication());
+
+
         rvFiles = findViewById(R.id.rv_files);
         mAdd = findViewById(R.id.fab_add);
 
         MyAdapter adapter = new MyAdapter();
+        mcFirebaseResourceTool.getAllServerResource(adapter);
 
         setUpRecyclerview(adapter);
         getTextFile(adapter);
@@ -92,9 +98,12 @@ public class MainActivity extends AppCompatActivity {
                 String text = intent.getStringExtra("Result");
                 Log.d(TAG, "Text: " + text);
                 TextFile textFile = new TextFile(text, new Date(), title);
-                adapter.add(textFile);
 
-                //TODO: Upload text file to database
+                // update on server not here
+                //adapter.add(textFile);
+
+                //TODO: Upload text  to database
+                mcFirebaseResourceTool.sendServerResource(textFile);
             }
         }
     }

@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.johnnghia.scanned.models.objects.User;
+import com.johnnghia.scanned.models.services.MCFirebaseResourceTool;
 
 public class RegisterActivity extends Activity {
     EditText edtFirstName, edtLastName, edtUser, edtPass, edtRePass;
@@ -41,7 +42,7 @@ public class RegisterActivity extends Activity {
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User user = new User(edtUser.getText().toString(), edtPass.getText().toString(), edtFirstName.getText().toString(), edtLastName.getText().toString());
+                final User user = new User(edtUser.getText().toString(), edtPass.getText().toString(), edtFirstName.getText().toString(), edtLastName.getText().toString());
                 switch (user.checkInfor()) {
                     case 1:
                         if(edtRePass.getText().toString().equals(user.getPass())){
@@ -51,11 +52,10 @@ public class RegisterActivity extends Activity {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if(task.isSuccessful()){
-
-                                                // TO-DO: Create information in database
-
+                                                // TODO: Create information in database
+                                                new MCFirebaseResourceTool(RegisterActivity.this).createUserFirebaseDB(user);
                                                 mLoadingDialog.dismiss();
-                                                Toast.makeText(RegisterActivity.this, "Create new account successful.", Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(RegisterActivity.this, "Create new account successful.", Toast.LENGTH_SHORT).show();
                                                 Intent intentSignin = new Intent(RegisterActivity.this, MainActivity.class);
                                                 intentSignin.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(intentSignin);
@@ -106,7 +106,6 @@ public class RegisterActivity extends Activity {
         edtUser         = findViewById(R.id.register_edt_username);
         edtPass         = findViewById(R.id.register_edt_password);
         edtRePass       = findViewById(R.id.register_edt_repassword);
-
         btnSignup       = findViewById(R.id.register_btn_signin);
     }
 }
