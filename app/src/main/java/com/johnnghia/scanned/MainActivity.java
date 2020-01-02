@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rvFiles;
     private FloatingActionButton mAdd;
+    private AlertDialog mLoadingDialog;
+    private Handler UIHandler;
 
     private FirebaseAuth mAuth;
     private MCFirebaseResourceTool mcFirebaseResourceTool;
@@ -70,14 +73,22 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        mcFirebaseResourceTool = new MCFirebaseResourceTool(getApplication());
-
+        mcFirebaseResourceTool = new MCFirebaseResourceTool(getApplicationContext());
 
         rvFiles = findViewById(R.id.rv_files);
         mAdd = findViewById(R.id.fab_add);
+        // show dialog
+        UIHandler = new Handler();
+        mLoadingDialog = new AlertDialog.Builder(MainActivity.this)
+                .setCancelable(false)
+                .setView(R.layout.loading_layout)
+                .create();
 
+
+        // Prepair to get all data from server or local
+        mLoadingDialog.show(); // ---> Show AlertDialog
         MyAdapter adapter = new MyAdapter();
-        mcFirebaseResourceTool.getAllServerResource(adapter);
+        mcFirebaseResourceTool.getAllServerResource(adapter, UIHandler, dismissLoadingDialog);
 
         setUpRecyclerview(adapter);
         getTextFile(adapter);
@@ -99,10 +110,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Text: " + text);
                 TextFile textFile = new TextFile(text, new Date(), title);
 
-                // update on server not here
-                //adapter.add(textFile);
+                // Offline
+                if(!mcFirebaseResourceTool.isOnline()){
+                    adapter.add(textFile);
+                    mLoadingDialog.dismiss();
+                }
 
                 //TODO: Upload text  to database
+
                 mcFirebaseResourceTool.sendServerResource(textFile);
             }
         }
@@ -283,4 +298,22 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    // Test Dialog progress
+    // Dismiss Loading dialog
+    Runnable dismissLoadingDialog = new Runnable() {
+        @Override
+        public void run() {
+            mLoadingDialog.dismiss();
+        }
+    };
+//
+//    // Thread getdata in background
+//    Runnable getData = new Runnable() {
+//        @Override
+//        public void run() {
+//
+//        }
+//    };
+
 }
