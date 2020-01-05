@@ -119,7 +119,7 @@ public class MCFirebaseResourceTool {
             Log.e("List status (get)", "Empty");
             handler.post(endDialog);
         } else {
-            databaseReference.child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            databaseReference.child(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     adapter.clear();

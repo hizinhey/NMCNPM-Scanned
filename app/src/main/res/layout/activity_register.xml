@@ -20,68 +20,137 @@
         android:textSize="30sp"
         android:text="@string/register_label"
         />
-    <LinearLayout
+
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
+        android:layout_weight="7"
+        android:columnCount="5"
         android:gravity="center"
-        android:paddingTop="10dp"
-        android:layout_weight="8">
+        android:padding="25dp"
+        android:rowCount="6">
+
+        <TextView
+            android:layout_row="0"
+            android:layout_column="0"
+            android:text="@string/register_h_firstname"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem" />
+
+        <TextView
+            android:layout_row="0"
+            android:layout_column="1"
+            android:text=":"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem"/>
+
         <EditText
             android:id="@+id/register_edt_firstname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:inputType="text"
-            android:hint="@string/register_h_firstname"/>
+            android:layout_row="0"
+            android:layout_column="2"
+
+            android:backgroundTint="@color/cardview_dark_background"
+            android:inputType="text" />
+        <TextView
+            android:layout_row="1"
+            android:layout_column="0"
+            android:text="@string/register_h_lastname"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem" />
+
+        <TextView
+            android:layout_row="1"
+            android:layout_column="1"
+            android:text=":"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem"/>
         <EditText
             android:id="@+id/register_edt_lastname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
 
-            android:hint="@string/register_h_lastname"/>
+            android:layout_row="1"
+            android:layout_column="2"
+
+            android:backgroundTint="@color/cardview_dark_background"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_row="2"
+            android:layout_column="0"
+            android:text="@string/register_h_username"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem" />
+
+        <TextView
+            android:layout_row="2"
+            android:layout_column="1"
+            android:text=":"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem"/>
         <EditText
             android:id="@+id/register_edt_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
 
-            android:hint="@string/register_h_username"/>
+            android:layout_column="2"
+            android:layout_row="2"
+
+            android:hint="VD: abd@gmail.com"
+            android:backgroundTint="@color/cardview_dark_background"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:layout_row="3"
+            android:layout_column="0"
+            android:text="@string/register_h_password"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem" />
+
+        <TextView
+            android:layout_row="3"
+            android:layout_column="1"
+            android:text=":"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem"/>
         <EditText
             android:id="@+id/register_edt_password"
             android:layout_width="match_parent"
 
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:inputType="textPassword"
             android:layout_height="wrap_content"
-            android:hint="@string/register_h_password"/>
+            android:layout_column="2"
+            android:layout_row="3"
+
+            android:backgroundTint="@color/cardview_dark_background"
+
+            android:inputType="textPassword" />
+
+        <TextView
+            android:layout_row="4"
+            android:layout_column="0"
+            android:text="@string/register_h_repassword"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem" />
+
+        <TextView
+            android:layout_row="4"
+            android:layout_column="1"
+            android:text=":"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="2dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.TextView.SpinnerItem"/>
+
         <EditText
             android:id="@+id/register_edt_repassword"
             android:layout_width="match_parent"
 
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:inputType="textPassword"
             android:layout_height="wrap_content"
-            android:hint="@string/register_h_repassword"/>
-    </LinearLayout>
+            android:layout_column="2"
+            android:layout_row="4"
+
+            android:backgroundTint="@color/cardview_dark_background"
+
+            android:inputType="textPassword" />
+    </GridLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:elevation="0dp"
         android:orientation="vertical"
         android:gravity="center_horizontal">
@@ -91,6 +160,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:elevation="50dp"
+            android:textColor="#ffffff"
+            android:background="@drawable/button_shape"
             android:text="@string/register_t_signup"
             />
     </LinearLayout>

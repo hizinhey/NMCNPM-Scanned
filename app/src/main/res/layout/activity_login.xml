@@ -61,6 +61,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:elevation="50dp"
+            android:background="@drawable/button_shape"
+            android:textColor="#ffffff"
             android:text="@string/login_t_signin"
             />
         <LinearLayout

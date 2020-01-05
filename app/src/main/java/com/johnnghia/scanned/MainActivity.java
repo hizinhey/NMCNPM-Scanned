@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         UIHandler = new Handler();
         mLoadingDialog = new AlertDialog.Builder(MainActivity.this)
                 .setCancelable(false)
+                .setTitle("Getting data ...")
                 .setView(R.layout.loading_layout)
                 .create();
 
