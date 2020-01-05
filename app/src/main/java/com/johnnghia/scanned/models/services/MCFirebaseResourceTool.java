@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -19,11 +20,15 @@ import com.johnnghia.scanned.models.objects.TextFile;
 import com.johnnghia.scanned.models.objects.User;
 import com.johnnghia.scanned.utils.MyAdapter;
 
+import java.util.Date;
+
 import static android.content.ContentValues.TAG;
 
 
 // Thuc hien tuong tac du lieu TextFile voi FirebaseDatabase
 public class MCFirebaseResourceTool {
+    private final static String TAG = MCFirebaseResourceTool.class.getSimpleName();
+
     private Context context;
     public boolean connected = false; // Connection status of server
 
@@ -92,8 +97,8 @@ public class MCFirebaseResourceTool {
 
 
 
-    public void sendServerResource(TextFile _data){
-        if(_data == null || mAuth.getUid() == null){
+    public void sendServerResource(String title, String text){
+        if(TextUtils.isEmpty(title) || TextUtils.isEmpty(text) || mAuth.getUid() == null){
             //TODO: Loi du lieu
             Log.e("List status (send)", "Empty");
         } else {
@@ -103,12 +108,19 @@ public class MCFirebaseResourceTool {
             //dbReference.keepSynced(true);
 
             String dataID = dbReference.push().getKey();
-            dbReference.child(dataID).setValue(_data);
+            TextFile textFile = new TextFile(dataID,text, new Date(), title);
+            dbReference.child(dataID).setValue(textFile);
 
             Toast.makeText(context, "Update du lieu thanh cong.", Toast.LENGTH_SHORT).show();
         }
     }
 
+    public void updateServerResource(TextFile textFile){
+        dbInstance = FirebaseDatabase.getInstance();
+        DatabaseReference dbReference = dbInstance.getReference("resource").child(mAuth.getUid());
+        String dataId = textFile.getId();
+        dbReference.child(dataId).setValue(textFile);
+    }
     public void getAllServerResource(final MyAdapter adapter, final Handler handler, final Runnable endDialog){
         DatabaseReference databaseReference = FirebaseDatabase
                 .getInstance()

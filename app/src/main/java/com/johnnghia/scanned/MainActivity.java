@@ -54,9 +54,11 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int CAMERA_REQUEST_CODE = 9001;
     private static final int GALLERY_REQUEST_CODE = 400;
+    private static final int EDIT_REQUEST_CODE = 201;
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private RecyclerView rvFiles;
+    private MyAdapter adapter;
     private FloatingActionButton mAdd;
     private AlertDialog mLoadingDialog;
     private Handler UIHandler;
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Prepair to get all data from server or local
         mLoadingDialog.show(); // ---> Show AlertDialog
-        MyAdapter adapter = new MyAdapter();
+        adapter = new MyAdapter();
         mcFirebaseResourceTool.getAllServerResource(adapter, UIHandler, dismissLoadingDialog);
 
         setUpRecyclerview(adapter);
@@ -108,18 +110,9 @@ public class MainActivity extends AppCompatActivity {
             if (intent.hasExtra("Title")) {
                 String title = intent.getStringExtra("Title");
                 String text = intent.getStringExtra("Result");
-                Log.d(TAG, "Text: " + text);
-                TextFile textFile = new TextFile(text, new Date(), title);
-
-                // Offline
-                if(!mcFirebaseResourceTool.isOnline()){
-                    adapter.add(textFile);
-                    mLoadingDialog.dismiss();
-                }
-
                 //TODO: Upload text  to database
 
-                mcFirebaseResourceTool.sendServerResource(textFile);
+                mcFirebaseResourceTool.sendServerResource(title, text);
             }
         }
     }
@@ -232,8 +225,27 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private void setUpRecyclerview(MyAdapter adapter) {
+    private void setUpRecyclerview(final MyAdapter adapter) {
         rvFiles.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setListener(new MyAdapter.OnItemClickListener() {
+            @Override
+            public void onShareClick(int position) {
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, adapter.getItem(position).getText());
+                sendIntent.setType("text/plain");
+                Intent chooser = Intent.createChooser(sendIntent, getString(R.string.share));
+                if (sendIntent.resolveActivity(getPackageManager()) != null){
+                    startActivity(chooser);
+                }
+            }
+
+            @Override
+            public void onItemClick(int position) {
+                Intent editIntent = new Intent(MainActivity.this, EditActivity.class);
+                editIntent.putExtra("file",adapter.getItem(position));
+                startActivityForResult(editIntent,EDIT_REQUEST_CODE);
+            }
+        });
         rvFiles.setAdapter(adapter);
         rvFiles.setHasFixedSize(true);
         rvFiles.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -282,6 +294,11 @@ public class MainActivity extends AppCompatActivity {
                     CropImage.activity(data.getData())
                             .setGuidelines(CropImageView.Guidelines.ON)
                             .start(this);
+                    break;
+                case EDIT_REQUEST_CODE:
+                    Log.d(TAG, "onActivityResult: ok");
+                    mLoadingDialog.show(); // ---> Show AlertDialog
+                    mcFirebaseResourceTool.getAllServerResource(adapter, UIHandler, dismissLoadingDialog);
                     break;
             }
         }

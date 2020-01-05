@@ -14,20 +14,26 @@
         android:id="@+id/tv_title"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-        android:layout_toStartOf="@id/tv_date"
-        android:text="Con gà"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:layout_toStartOf="@id/ib_share"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_date"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:textColor="#65000000"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:text="22 tháng 2"
+        android:layout_below="@id/tv_title"
+        android:layout_alignParentStart="true"
         />
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ib_share"
+        android:src="@drawable/ic_share"
+        android:background="@android:color/transparent"
+        android:tint="@color/colorPrimary"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/share" />
 </RelativeLayout>

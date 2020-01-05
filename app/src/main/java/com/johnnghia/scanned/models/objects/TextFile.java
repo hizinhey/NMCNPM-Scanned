@@ -2,22 +2,25 @@ package com.johnnghia.scanned.models.objects;
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @IgnoreExtraProperties
-public class TextFile {
+public class TextFile implements Serializable {
+    private String id;
     private String title;
     private String text;
     private Date date;
 
     public TextFile(){}
-    public TextFile(String text, Date date, String title) {
+    public TextFile(String id, String text, Date date, String title) {
         this.text = text;
         this.date = date;
         this.title = title;
+        this.id = id;
     }
 
     public String getText() {
@@ -44,11 +47,11 @@ public class TextFile {
         this.title = title;
     }
 
-    public static List<TextFile> dummyFiles(int size) {
-        List<TextFile> textFiles = new ArrayList<>();
-        for (int i = 0; i < size; i++){
-            textFiles.add(new TextFile("abc", new Date(),"File " + i));
-        }
-        return textFiles;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

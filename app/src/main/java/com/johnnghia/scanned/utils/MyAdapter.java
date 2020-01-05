@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,17 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private List<TextFile> textFiles;
+    private OnItemClickListener listener;
+
+
+    public interface OnItemClickListener{
+        void onShareClick(int position);
+        void onItemClick(int position);
+    }
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
     public MyAdapter() {
         textFiles = new ArrayList<>();
@@ -37,15 +49,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         TextView tvTitle = holder.tvTitle;
         TextView tvDate = holder.tvDate;
+        ImageButton ibShare = holder.ibShare;
 
         TextFile textFile = textFiles.get(position);
 
         tvTitle.setText(textFile.getTitle());
         String date = DateFormat.getDateInstance().format(textFile.getDate());
         tvDate.setText(date);
+        ibShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onShareClick(position);
+            }
+        });
     }
 
     @Override
@@ -90,13 +109,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         private TextView tvTitle;
         private TextView tvDate;
+        private ImageButton ibShare;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvTitle = itemView.findViewById(R.id.tv_title);
             tvDate = itemView.findViewById(R.id.tv_date);
+            ibShare = itemView.findViewById(R.id.ib_share);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(getAdapterPosition());
+                }
+            });
         }
     }
 }
